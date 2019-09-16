@@ -8,3 +8,9 @@ ModPHP借鉴了国外很多优秀的框架和模式，使用面向对象的开�
 
 ModPHP可以支持windows/Unix/Linux等服务器环境，PHP all支持，ModPHP本身是一个模块。
 
+ModPHP模块文件名为:modphp.php
+
+实例1
+模板:text.html
+主程序text.html
+
