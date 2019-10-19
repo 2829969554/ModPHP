@@ -37,6 +37,19 @@ class Modtemplate
 		}
 		echo($this->template);
 	}
+	//获取将要显示的页面文本
+	public function getshowtext(){
+		for ($i=0; $i < count($this->rowtemp)/2; $i++) { 
+			$a=$this->rowtext[$i];
+			//echo $this->rowtemp[$a].'<br>';
+			//echo $this->rowtext[$a].'<br>';
+			$this->rowtemp[$a]=preg_replace("/\//","\\\/",$this->rowtemp[$a]);
+			//$this->rowtext[$a]=preg_replace("/\//","\\\/",$this->rowtext[$a]);
+			$this->template=preg_replace('/'.$this->rowtemp[$a].'/',$this->rowtext[$a],$this->template);
+			
+		}
+		return ($this->template);
+	}
 	//置键值
 	//参数1:键值名
 	//参数2:数据

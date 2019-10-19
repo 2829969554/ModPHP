@@ -6,7 +6,10 @@
 		
 		//页面显示
 		public function show()
-		
+
+		//获取将要显示的页面字符串
+		public function getshowtext()
+
 		//置键值
 		//参数1:键值名
 		//参数2:数据
@@ -111,6 +114,52 @@ lib/moddb.php=[
 		//取最近错误信息
 		public function error()
 
+	}
+
+]
+
+
+lib/modphp=[
+
+	class Modrsa{
+
+	   	/*
+	   	设置字节集类型
+		0.字节集
+		1.十六进制
+		2.base64
+		*/
+	   	function setcharset($type)
+
+		//初始化公钥或者公钥证书地址
+		public function setup_public($public)
+
+		//初始化私钥或者私钥证书地址
+		public function setup_private($private)
+
+		//初始化公钥或者公钥证书地址
+		public function setup_public_file($public)
+
+		//初始化私钥或者私钥证书地址
+		public function setup_private_file($private)
+
+		//公钥加密
+		public function public_encrypt($data)
+
+		//公钥解密
+		public function public_decrypt($data)
+
+		//私钥加密
+		public function private_encrypt($data)
+
+		//私钥解密
+		public function private_decrypt($data)
+
+		//签名
+		public function sign($data)
+
+		//验签
+		public function verify($data,$sign)
 	}
 
 ]
