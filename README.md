@@ -8,7 +8,7 @@ ModPHP借鉴了国外很多优秀的框架和模式，使用面向对象的开�
 
 ModPHP可以支持windows/Unix/Linux等服务器环境，PHP all支持，ModPHP本身是一个模块。
 
-lib/modphp=[
+lib/modphp.php=[
 	class Modtemplate{
 
 		//载入模板文件
