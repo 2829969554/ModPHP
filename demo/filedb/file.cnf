@@ -1,0 +1,8 @@
+{{fileinfo}}
+Connection: close
+Content-Encoding: none
+Content-Disposition: attachment; filename={{name}}
+Content-Type: {{type}}
+Content-Length: {{size}}
+Accept-Ranges: bytes
+{{/fileinfo}}

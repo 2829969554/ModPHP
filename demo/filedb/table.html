@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>文件列表统计</title>
+</head>
+<style type="text/css">
+	th{
+		width: auto;
+		text-align: center;
+	}
+	td{
+		width: auto;
+		text-align: center;
+	}
+</style>
+<body>
+	<table style="width: 100%">
+		<thead>
+			<tr>
+				<th>FID</th>
+				<th>name</th>
+				<th>type</th>
+				<th>sha1</th>
+				<th>time</th>
+				<th>show</th>
+			</tr>
+		</thead>
+		<tbody>
+			{{jilu}}
+			<tr>
+				<td>{{id}}</td>
+				<td>{{name}}</td>
+				<td>{{type}}</td>
+				<td>{{sha1}}</td>
+				<td>{{time}}</td>
+				<td><a href="/push?fid={{id}}">查看</a></td>
+			</tr>
+			{{/jilu}}
+		</tbody>
+	</table>
+</body>
+</html>

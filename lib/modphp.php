@@ -30,7 +30,20 @@ class Modtemplate
 			$a=$this->rowtext[$i];
 			//echo $this->rowtemp[$a].'<br>';
 			//echo $this->rowtext[$a].'<br>';
-			$this->rowtemp[$a]=preg_replace("/\//","\\\/",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\]/","\]",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\[/","\[",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\?/","\?",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\//","\/",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\{/","\{",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\}/","\}",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\(/","\(",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\)/","\)",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\*/","\*",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\^/","\^",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\+/","\+",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\./","\.",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\|/","\|",$this->rowtemp[$a]);
+			//echo $this->rowtemp[$a].'<br>';
 			//$this->rowtext[$a]=preg_replace("/\//","\\\/",$this->rowtext[$a]);
 			$this->template=preg_replace('/'.$this->rowtemp[$a].'/',$this->rowtext[$a],$this->template);
 			
@@ -43,7 +56,19 @@ class Modtemplate
 			$a=$this->rowtext[$i];
 			//echo $this->rowtemp[$a].'<br>';
 			//echo $this->rowtext[$a].'<br>';
-			$this->rowtemp[$a]=preg_replace("/\//","\\\/",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\]/","\]",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\[/","\[",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\?/","\?",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\//","\/",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\{/","\{",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\}/","\}",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\(/","\(",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\)/","\)",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\*/","\*",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\^/","\^",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\+/","\+",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\./","\.",$this->rowtemp[$a]);
+			$this->rowtemp[$a]=preg_replace("/\|/","\|",$this->rowtemp[$a]);
 			//$this->rowtext[$a]=preg_replace("/\//","\\\/",$this->rowtext[$a]);
 			$this->template=preg_replace('/'.$this->rowtemp[$a].'/',$this->rowtext[$a],$this->template);
 			
@@ -135,7 +160,9 @@ class Modtemplate
 	//页面函数
 	function Bind_View_Fun($url,$fun)
 	{
-		if(getleftstr($_SERVER["REQUEST_URI"],'?')==$url)
+		$temp=$_SERVER["REQUEST_URI"];
+		$temp=preg_replace("/\/index.php/","",$temp);
+		if(getleftstr($temp,'?')==$url)
 		{
 			$fun();
 			exit();
@@ -147,7 +174,9 @@ class Modtemplate
 	//页面文件
 	function Bind_View_File($url,$file)
 	{
-		if(getleftstr($_SERVER["REQUEST_URI"],'?')==$url)
+		$temp=$_SERVER["REQUEST_URI"];
+		$temp=preg_replace("/\/index.php/","",$temp);
+		if(getleftstr($temp,'?')==$url)
 		{
 			require $file;
 			exit();
@@ -159,7 +188,9 @@ class Modtemplate
 	//文件
 	function Bind_View_Jump($url,$file)
 	{
-		if(getleftstr($_SERVER["REQUEST_URI"],'?')==$url)
+		$temp=$_SERVER["REQUEST_URI"];
+		$temp=preg_replace("/\/index.php/","",$temp);
+		if(getleftstr($temp,'?')==$url)
 		{
 			header('location:'.$file);
 			exit();
@@ -209,7 +240,7 @@ function isGET(){
 
 //判断请求来源是否为POST
 function isPOST(){
-return ($_SERVER['REQUEST_METHOD'] == 'POST' && checkurlHash($GLOBALS['verify']) && (empty($_SERVER['HTTP_REFERER']) || preg_replace("~https?:\/\/([^\:\/]+).*~i", "\\1", $_SERVER['HTTP_REFERER']) == preg_replace("~([^\:]+).*~", "\\1", $_SERVER['HTTP_HOST']))) ? 1 : 0;
+return ($_SERVER['REQUEST_METHOD'] == 'POST' && (empty($_SERVER['HTTP_REFERER']) || preg_replace("~https?:\/\/([^\:\/]+).*~i", "\\1", $_SERVER['HTTP_REFERER']) == preg_replace("~([^\:]+).*~", "\\1", $_SERVER['HTTP_HOST']))) ? 1 : 0;
 }
 
 //判断请求来源是否为AJAX

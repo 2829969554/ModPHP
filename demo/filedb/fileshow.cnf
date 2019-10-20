@@ -1,0 +1,7 @@
+{{fileinfo}}
+Connection: close
+Content-Encoding: none
+Content-Type: {{type}}
+Content-Length: {{size}}
+Accept-Ranges: bytes
+{{/fileinfo}}
