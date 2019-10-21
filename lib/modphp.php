@@ -3,7 +3,7 @@
 作者:Modble
 qq:2829969554
 作用:html模板渲染
-版本:1.2:
+版本:1.7:
 */
 
 class Modtemplate
@@ -15,38 +15,36 @@ class Modtemplate
 	function __construct() {
 
 	}
-	//载入模板文件
+	//载入模板或者模板文件
 	public function load($file){
-		$this->template=file_get_contents($file);
+		$this->template= file_exists($file) ? file_get_contents($file) : $file;		
 		if($this->template){
 			return true;
 		}else{
 			return false;
 		}
 	}
+
+	//载入模板文件
+	public function loadfile($file){
+		$this->template= file_get_contents($file);
+		
+		if($this->template){
+			return true;
+		}else{
+			return false;
+		}
+	}
+
 	//页面显示
 	public function show(){
 		for ($i=0; $i < count($this->rowtemp)/2; $i++) { 
 			$a=$this->rowtext[$i];
-			//echo $this->rowtemp[$a].'<br>';
-			//echo $this->rowtext[$a].'<br>';
-			$this->rowtemp[$a]=preg_replace("/\]/","\]",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\[/","\[",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\?/","\?",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\//","\/",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\{/","\{",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\}/","\}",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\(/","\(",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\)/","\)",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\*/","\*",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\^/","\^",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\+/","\+",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\./","\.",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\|/","\|",$this->rowtemp[$a]);
-			//echo $this->rowtemp[$a].'<br>';
-			//$this->rowtext[$a]=preg_replace("/\//","\\\/",$this->rowtext[$a]);
-			$this->template=preg_replace('/'.$this->rowtemp[$a].'/',$this->rowtext[$a],$this->template);
-			
+
+			//过滤特殊符号
+			$this->rowtemp[$a]=getsafestr($this->rowtemp[$a]);
+
+			$this->template=preg_replace('/'.$this->rowtemp[$a].'/',$this->rowtext[$a],$this->template);	
 		}
 		echo($this->template);
 	}
@@ -54,31 +52,19 @@ class Modtemplate
 	public function getshowtext(){
 		for ($i=0; $i < count($this->rowtemp)/2; $i++) { 
 			$a=$this->rowtext[$i];
-			//echo $this->rowtemp[$a].'<br>';
-			//echo $this->rowtext[$a].'<br>';
-			$this->rowtemp[$a]=preg_replace("/\]/","\]",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\[/","\[",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\?/","\?",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\//","\/",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\{/","\{",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\}/","\}",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\(/","\(",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\)/","\)",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\*/","\*",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\^/","\^",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\+/","\+",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\./","\.",$this->rowtemp[$a]);
-			$this->rowtemp[$a]=preg_replace("/\|/","\|",$this->rowtemp[$a]);
-			//$this->rowtext[$a]=preg_replace("/\//","\\\/",$this->rowtext[$a]);
+
+			//过滤特殊符号
+			$this->rowtemp[$a]=getsafestr($this->rowtemp[$a]);
+
 			$this->template=preg_replace('/'.$this->rowtemp[$a].'/',$this->rowtext[$a],$this->template);
 			
 		}
 		return ($this->template);
 	}
+
 	//置键值
 	//参数1:键值名
 	//参数2:数据
-
 	public function settext($name,$date){
 		$this->template=preg_replace('/{{'.$name.'}}/',$date,$this->template);
 	}
@@ -151,8 +137,8 @@ class Modtemplate
 /*--------------------------路由绑定--------------------------*/
 	//定义404
 	function Bind_Error($a){
-		require 'error/'.$a.'.html';
-		exit();
+		$a=file_exists($a) ? $a : 'error/'.$a.'.html';
+		require $a;
 	}
 
 	//订阅视图函数
@@ -163,7 +149,7 @@ class Modtemplate
 		$temp=$_SERVER["REQUEST_URI"];
 		$temp=preg_replace("/\/index.php/","",$temp);
 		if(getleftstr($temp,'?')==$url)
-		{
+		{			
 			$fun();
 			exit();
 		}
@@ -180,6 +166,7 @@ class Modtemplate
 		{
 			require $file;
 			exit();
+			
 		}
 		
 	}
@@ -199,7 +186,7 @@ class Modtemplate
 	}
 /*--------------------------字符串--------------------------*/
 //取某文本两文本之间内容
-	function getcentstr($str, $leftStr, $rightStr)
+function getcentstr($str, $leftStr, $rightStr)
 {
     $left = strpos($str, $leftStr);
     //echo '左边:'.$left;
@@ -213,7 +200,7 @@ class Modtemplate
 }
 
 //取某文本右边
-	function getrightstr($str, $leftStr)
+function getrightstr($str, $leftStr)
 {
     $left = strpos($str, $leftStr);
     if($left>0){
@@ -223,13 +210,24 @@ class Modtemplate
 }
 
 //取某文本左边
-	function getleftstr($str, $rightStr)
+function getleftstr($str, $rightStr)
 {
     $right = strpos($str, $rightStr);
     if($right>0){
     	return substr($str, 0, $right);
     }
     return $str;
+}
+
+//取安全字符串
+function getsafestr($text){
+	//过滤特殊符号
+	$temp=$text;
+	$fuhao=$arrayName = array('<','>','?','/','"',"'",'[',']','{','}','=','-','.','$','^','*','|','(',')');
+	foreach ($fuhao as $key => $value) {
+		$temp=preg_replace( "/\\$value/" , '\\'.$value , $temp);
+	}
+	return $temp;
 }
 
 /*--------------------------请求来源--------------------------*/

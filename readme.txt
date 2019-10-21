@@ -1,6 +1,9 @@
 ﻿lib/modphp=[
 	class Modtemplate{
 
+		//从字符串载入模板或者载入模板文件
+		public function load($file)
+
 		//载入模板文件
 		public function load($file)
 		
@@ -43,6 +46,9 @@
 		//绑定的url
 		//文件
 		function Bind_View_Jump($url,$file)
+
+		//取转义之后的安全文本
+		function getsafestr($str)
 
 		//取两文本之间内容
 		function getcentstr($str, $leftStr, $rightStr)
