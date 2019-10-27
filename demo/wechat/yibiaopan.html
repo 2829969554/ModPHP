@@ -1,0 +1,49 @@
+      <style type="text/css">
+          li {
+            list-style-type:none;
+            margin-top: 10px;
+            font-size: 22px; 
+          }
+      </style>
+      <meta charset="utf-8">
+        <div class="result-wrap">
+            <div class="result-title">
+                <h1>系统基本信息</h1>
+            </div>
+            <div class="result-content">
+                <ul class="sys-info-list">
+                    <li>
+                        <label class="res-lab">博客设计:</label><span class="res-info">V1.0</span>
+                        <label class="res-lab">开发者:</label><span class="res-info">Modoule</span>
+                        <label class="res-lab">QQ:</label><span class="res-info">2829969554</span>
+                    </li>
+                    <li>
+                        <label class="res-lab">操作系统:</label><span class="res-info"><?php echo PHP_OS;	?></span>
+                    </li>
+                    <li>
+                        <label class="res-lab">运行环境:</label><span class="res-info"><?php echo $_SERVER["SERVER_SOFTWARE"];	?></span>
+                    </li> 
+                    
+                     <li>
+                        <label class="res-lab">PHP版本:</label><span class="res-info"><?php echo PHP_VERSION;	?></span>
+                    </li>
+                    <li>
+                        <label class="res-lab">PHP运行方式:</label><span class="res-info"><?php echo php_sapi_name();	?></span>
+                    </li>
+
+                    <li>
+                        <label class="res-lab">上传附件限制:</label><span class="res-info"><?php echo ini_get('upload_max_filesize');	?></span>
+                    </li>
+                    <li>
+                        <label class="res-lab">北京时间:</label><span class="res-info"><?php echo gmdate("Y年n月j日 H:i:s",time()+8*3600); ?></span>
+                    </li>
+                    <li>
+                        <label class="res-lab">服务器域名/IP:</label><span class="res-info"><?php echo $_SERVER['SERVER_NAME']; ?></span>
+                    </li>
+                    <li>
+                        <label class="res-lab">Host:</label><span class="res-info"><?php echo gethostbyname($_SERVER['SERVER_NAME']); ?></span>
+                    </li>
+
+                </ul>
+            </div>
+        </div>

@@ -1,0 +1,99 @@
+<!DOCTYPE html >
+<meta charset="utf-8">
+<script type="text/javascript">
+  /*
+  function csh(){
+var a =prompt('账号,性别,注册后将不可修改\n请输入"我知道了"');
+if (a !='我知道了') {
+    a =prompt('输入错误!\n重新注册请输入1\n终止注册请输入0');
+    if(a==1){
+        csh();
+      }else{
+        window.opener=null;
+        window.open('','_self');
+        window.close();
+      }
+
+  }else{
+    document.cookie="popped=123";
+  }
+
+} 
+if(document.cookie.indexOf("popped=")==-1){
+csh(); 
+}
+*/
+</script>
+<style type="text/css">
+	body{
+		background-color: rgb(109,110,106);
+	}
+	.submit_1{
+		border-radius: 5px;
+		background-color: green;
+		font-size: 22px;
+		border: 0px;
+		color: white;
+	}
+	.submit_1:hover{
+		background-color: darkgreen;
+		font-size: 22px;
+		border: 0px;
+		color: white;
+	}
+	td{
+		font-size: 18px;
+	}
+	.app input{
+		font-size: 22px;
+		width: 50%;
+	}
+</style>
+
+<title>注册</title>
+</head>
+<div id="home">
+<body>
+
+	<div style="text-align:center;" id="blogTitle">		
+		<h1>用户注册</h1>
+	
+<form name="form_2" method="post" action="">
+<table class="table_1"  cellspacing="0px" style="text-align:right;width: 125%;" >
+    <tr>
+    <td style="text-align:right;">昵称：</td>
+    <td style="text-align:left;" class="app"><input style="background:rgba(250,250,250,0.5);" type="text" name="name" id="name" /></td>
+  </tr>
+  <tr>
+ <td style="text-align:right;">性别：</td>
+  <td style="text-align:left;"> 
+<select name="xingbie" style="font-size: 18px;background:rgba(250,250,250,0.5);">
+	<option value="0">女 ♀</option>
+	<option value="1">男 ♂</option>
+	<option value="1">外星人 ♀♂</option>
+</select>
+
+  </td>
+  </tr>
+  <tr>
+  	<td style="text-align:right;">账号：</td>
+    <td style="text-align:left;" class="app"><input style="background:rgba(250,250,250,0.5);" type="text" name="username" id="username" /></td>
+  </tr>
+  <tr>
+  	<td style="text-align:right;">密码：</td>
+    <td style="text-align:left;" class="app"><input style="background:rgba(250,250,250,0.5);" type="password" name="password" id="password"/> </td>
+  </tr>
+  <tr >
+  	<td style="text-align:right;">请确认密码：</td>
+    <td style="text-align:left;" class="app"><input style="background:rgba(250,250,250,0.5);" type="password" name="repassword" id="repassword" /></td>
+  </tr>
+
+</table>
+<br/><br/>
+   <input class="submit_1" type="submit" value="注册" name="button" id="button"/>
+</form>
+</div>
+
+</body>
+</div>
+</html>

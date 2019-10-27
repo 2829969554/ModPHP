@@ -6,11 +6,15 @@ class Modmysql extends mysqli{
 		
 	}
 	//链接数据库 地址，用户名，密码，编码
-	public function load($ip,$user,$pwd,$db,$charset='utf-8')
+	public function load($ip,$user,$pwd,$db,$charset='utf8',$port=3306)
 	{
 		
-		$this->connect($ip,$user,$pwd,$db);
+		$this->connect($ip,$user,$pwd,$db,$port);
+		
 		$this->set_charset($charset);
+		
+
+		return $this->connect_error;
 
 	}
 	//执行sql

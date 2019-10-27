@@ -1,0 +1,120 @@
+<!DOCTYPE HTML>
+<html>
+	
+<head>
+	<meta charset="utf-8" />
+	<style>
+		body{
+			background-color: rgb(39,40,34);
+			position: absolute;
+			
+		}
+		p {
+			background-color: rgb(173,173,173);
+			border:2px solid;
+			border-radius:300px;
+			color:rgb(255,255,255);
+			font-size:32px;
+		}
+
+		.adiv{
+			border-radius:25px;
+			text-align: center;
+			background-color: rgb(234,235,235);
+			width: 600px;
+			margin-left: 50%;
+			margin-top: 2%;
+			height: 700px;
+		}
+		input{
+		
+			width: 50%;
+			font-size: 26px;
+			background-color: rgb(255,255,255);
+			color: rgb(157,172,206);
+			height: 30px;
+			
+		}
+		.buttont {
+			color: rgb(255,255,255);
+			border-radius:15px;
+			background-color: rgb(26,173,25);
+			
+			font-size:48px ;
+		}
+		.buttont:hover{
+			color: rgb(255,255,255);
+			font-size:48px ;
+			border-radius:15px;
+			background-color: darkgreen;
+			border: 1=px solid violet;		
+		}
+		.buttoni {
+			color: rgb(255,255,255);
+			border-radius:15px;
+			background-color: rgb(157,155,154);
+			
+			font-size:48px ;
+		}
+		.buttoni:hover{
+			color: rgb(255,255,255);
+			font-size:48px ;
+			border-radius:15px;
+			background-color: rgb(157,155,154);
+			border: 1=px solid violet;		
+		}		
+	b{
+		color: green;
+		font-size: 18px;
+	}	
+	</style>
+</head>
+
+<body>
+	<div class="adiv">
+		<p><strong style="font-size: 48px;">ModPHP Blog </strong>安装程序</p>
+<b>mysqli：<?php echo is_class('mysqli'); ?></b>
+<b>SQLite3：<?php echo is_class('SQLite3'); ?></b>
+<b>file_get_contents：<?php echo is_fun('file_get_contents'); ?></b>
+<b>preg：<?php echo is_fun('preg_replace'); ?></b>
+<b>array_push：<?php echo is_fun('array_push'); ?></b>
+
+<b>openssl：<?php echo is_fun('openssl_pkey_get_private'); ?></b>
+
+
+<form method="post">
+			<p>数据库地址:<input name="host" id="host" value ='localhost'/></p>
+			<p>数据库端口:<input name="port" id="port" value ='3306'/></p>
+			<p>数据库账号:<input name="user" id="user" value ='root'/></p>
+			<p>数据库密码:<input name="pass" id="pass" value ='root'/></p>
+			<p>数据库名称:<input name="db" id="db" value ='modphp'/></p>	
+			<p>管理账号:<input name="au" id="au" value ='admin'/></p>	
+			<p>管理密码:<input name="ap" id="ap" value ='admin'/></p>	
+
+			<button class="buttoni" type="submit" name="install">安装</button>
+	</form>
+			<button class="buttont"  onclick="atest();">检测</button>
+	</div>
+</body>
+<script type="text/javascript">
+function atest(){
+xhr=new XMLHttpRequest();
+            var host= document.getElementById("host").value;
+            var port =document.getElementById("port").value;
+            var user =document.getElementById("user").value;
+            var pass= document.getElementById("pass").value;
+            var db =document.getElementById("db").value;
+            //2.调用open方法（true----异步）
+            xhr.open("POST","/setup",true);
+            //3.发送数据
+            xhr.setRequestHeader('content-type','application/x-www-form-urlencoded');
+            xhr.send("host="+host+"&port="+port+"&user="+user+"&pass="+pass+"&db="+db+"&test=1");
+            //4.请求状态改变事件
+xhr.onreadystatechange = function(){
+            if (xhr.status == 200 && xhr.readyState==4){
+                 alert(xhr.responseText);
+            }              
+}
+}
+</script>
+</html>

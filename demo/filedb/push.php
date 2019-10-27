@@ -7,7 +7,7 @@ if(isGET()){
 		$fid=(int)$_GET['fid'];
 		//定义并且连接Mysql数据库
 		$mysql = new Modmysql;
-		$mysql->load('localhost','root','root','filedb');	
+		$mysql->load(MYSQL_HOST,MYSQL_USER,MYSQL_WORD,MYSQL_DB,MYSQL_CHAR,MYSQL_PORT);	
 		//查询id对应文件记录并且返回记录数组			
 		$row=$mysql->fetch_array($mysql->query('select name,file,type,size from files where id='.$fid.';'));
 		if($row){
@@ -47,7 +47,7 @@ if(isGET()){
 //判断请求方式
 if (isPOST()) {
 	//判断请求是不是上传文件
-	if(isset($_FILES['file']) && isset($_POST['push'])){
+	if(isset($_FILES['file'])){
 		//上传文件数组信息赋值到￥file
 		$file=$_FILES['file'];
 		//print_r($file);
@@ -63,12 +63,15 @@ if (isPOST()) {
 				$filehex='';
 				//定义并且连接mysql
 				$mysql = new Modmysql;
-				$mysql->load('localhost','root','root','filedb');
+				$mysql->load(MYSQL_HOST,MYSQL_USER,MYSQL_WORD,MYSQL_DB,MYSQL_CHAR,MYSQL_PORT);
 				//查询上传文件sha1记录是否存在相同文件				
 				$row=$mysql->fetch_array($mysql->query('select id from files where sha1="'.$sha1.'";'));
 				if($row){
 					//如果存在输出文件id
-					echo '上传成功：'.$row['id'];
+					//echo '上传成功：'.$row['id'];
+						$ttt['error']=0;
+						$ttt['data']['url']='push?fid='.$row['id'];
+						echo json_encode($ttt);
 					$mysql->exit();
 				}else{
 					//不存在读入文件并且二进制文件转十六进制字符串赋值$filedex并且关闭文件
@@ -80,7 +83,10 @@ if (isPOST()) {
 					$row=$mysql->fetch_array($mysql->query('select id from files where sha1="'.$sha1.'";'));
 					//判断是否插入成功
 					if($row){						
-						echo '上传成功：'.$row['id'];
+						//echo '上传成功：'.$row['id'];
+						$ttt['error']=0;
+						$ttt['data']['url']='push?fid='.$row['id'];
+						echo json_encode($ttt);
 						$mysql->exit();
 					}else{
 						echo '上传失败：写入数据库失败。';

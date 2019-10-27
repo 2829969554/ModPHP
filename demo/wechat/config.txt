@@ -1,0 +1,10 @@
+<?php
+{{config}}
+define('MYSQL_HOST', '{{ip}}');
+define('MYSQL_USER', '{{username}}');
+define('MYSQL_WORD', '{{password}}');
+define('MYSQL_DB', '{{db}}');
+define('MYSQL_CHAR', 'utf8');
+define('MYSQL_PORT', {{port}});
+{{/config}}
+?>

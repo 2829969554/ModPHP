@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>备份与还原</title>
+<style type="text/css">
+	body h2{
+		font-size: 26px;
+	}
+	body p{
+		font-size: 18px;
+	}
+	body button{
+		font-size: 16px;
+	}
+			/*菜单栏按钮鼠标移动到样式*/
+			.backup_button_mr:hover{
+				margin-top:10px;
+				font-size: 16px;
+		
+				padding-top: 5px;
+				padding-bottom: 5px;
+				background-color: rgb(77,179,107);
+				color: white;
+				border: 0px;
+			}
+			/*菜单栏默认按钮样式*/
+			.backup_button_mr{
+
+				margin-top:10px;
+				font-size: 16px;
+
+				padding-top: 5px;
+				padding-bottom: 5px;
+				background-color: rgb(160,212,104);
+				color: white;
+				border: 0px;
+			}
+</style>
+</head>
+
+<body>
+	<h2>备份</h2>
+	<p>点击此按钮可以备份路由器的当前配置</p>
+	<form method="get" action="/admin" target="the_iframe">
+		<input type="hidden" name="getbackup">
+		<button class="backup_button_mr" type="submit">导出数据</button>
+	</form>
+
+
+	<hr>
+	<h2>还原</h2>
+	<p>请选择配置文件，然后点击载入配置按钮</p>
+	<form method="post" action="/admin" target="the_iframe" enctype="multipart/form-data">
+		<input type="file" name="backup">
+		<br>
+		<button class="backup_button_mr" type="submit" >导入数据</button>
+	</form>
+</body>
+
+<iframe id="is_iframe" name="the_iframe" style="width: 100%;height: auto;padding: 0px;margin: 0px;"></iframe>
+</html>

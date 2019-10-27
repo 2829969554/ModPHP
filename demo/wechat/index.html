@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8" />
+		<title></title>
+		<script>
+			//js点击菜单按钮
+			function danjicaidan(name){
+				var row = document.getElementsByName('daohanglan_button');
+				for (var i = 0;i<row.length;i++) {
+					if(row[i].innerHTML==name){
+						row[i].click();
+						break;
+					}
+				}
+			}
+			function getbloglist(typeid){
+				var httpRequest = new XMLHttpRequest();
+		        httpRequest.open('GET', '/?username={{username}}&typeid='+typeid, true);
+		        httpRequest.send();
+		        httpRequest.onreadystatechange = function () {
+		            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+		                document.getElementById('list').innerHTML=httpRequest.responseText;
+		            }
+		        };
+			}
+
+			function getblogtext(blogid){
+				var httpRequest = new XMLHttpRequest();
+		        httpRequest.open('GET', '/?username={{username}}&blogid='+blogid, true);
+		        httpRequest.send();
+		        httpRequest.onreadystatechange = function () {
+		            if (httpRequest.readyState == 4 && httpRequest.status == 200) {
+		                document.getElementById('main').innerHTML=httpRequest.responseText;
+		            }
+		        };
+			}
+
+			function setjiaodian(dx,typeid){
+				var row = document.getElementsByName(dx.name);
+				for (var i = 0;i<row.length;i++) {
+					if(row[i].className=='button_xz'){
+						row[i].className='button_mr';
+						break;
+					}
+				}
+				dx.className='button_xz';
+				getbloglist(typeid);
+			}
+		</script>
+		<style>
+			body {
+				margin: 0px;
+				padding: 0px;
+			}
+			
+			.box {
+				position: absolute;
+				width: 100%;
+				height: 100%;
+			}
+			/*菜单栏*/
+			.daohanglan {
+				width: 5%;
+				height: 100%;
+				float: left;
+				min-width: 65px;
+				background-color: rgb(37, 40, 43);
+			}
+			/*列表栏*/
+			.listbox {
+				overflow:scroll;
+				width: 20%;
+				height: 100%;
+				min-width: 215px;
+				float: left;
+				background-color: rgb(238, 234, 232);
+			}
+			/*显示栏*/
+			.main {
+				overflow:scroll;
+				width: 71%;
+				min-width: 50px;
+				height: 100%;
+				float: left;
+				background-color: rgb(245, 245, 245);
+			}
+/*******************菜单栏样式*******************************/
+			/*菜单栏按钮点击选中样式*/
+			.button_xz{
+				margin-top:10px;
+				font-size: 16px;
+				width: 98%;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				background-color: rgb(9,187,7);
+				color: rgb(252,254,254);
+				border: 0px;
+			}
+			/*菜单栏按钮鼠标移动到样式*/
+			.button_mr:hover{
+				margin-top:10px;
+				font-size: 16px;
+				width: 98%;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				background-color: rgb(101,101,102);
+				color: rgb(252,254,254);
+				border: 0px;
+			}
+			/*菜单栏默认按钮样式*/
+			.button_mr{
+				margin-top:10px;
+				font-size: 16px;
+				width: 98%;
+				padding-top: 5px;
+				padding-bottom: 5px;
+				background-color: transparent;
+				color: rgb(140,140,140);
+				border: 0px;
+			}
+			/*左下角三线按钮默认样式*/
+			.button_set{
+				position: absolute;
+				left:10px;
+				bottom:10px;
+				font-size: 22px;
+				background-color: transparent;
+				color: rgb(140,140,140);
+				border: 0px;
+			}
+			/*左下角三线按钮鼠标移动到显示样式*/
+			.button_set:hover{
+				position: absolute;
+				left:10px;
+				bottom:10px;
+				font-size: 22px;
+				background-color: transparent;
+				color: rgb(252,254,254);
+				border: 0px;
+			}
+/*******************列表栏样式*******************************/
+			.sou{
+				background-image: url('img/sou.png');
+				background-repeat:no-repeat;
+				padding-left:30px;
+				margin-left: 5px;
+				margin-top: 10px;
+				width: 80%;
+				height: 22px;
+				border: 0px;
+				background-color: rgb(219,217,216);
+			}
+			.sou:focus{
+				background-image: url('img/sou_xz.png');
+				background-repeat:no-repeat;
+				padding-left:30px;
+				margin-left: 5px;
+				margin-top: 10px;
+				width: 80%;
+				height: 22px;
+				border: 0px;
+				background-color: rgb(245,245,245);
+			}
+			
+			tr td{
+				width: 100%;
+				padding-top: 10px;
+			}
+			tr td p{
+				float: left;
+				font-size: 11px;
+				padding-left: 5px;
+			}
+			
+			tr td img {
+				width: 50px;
+				float:left;
+				margin-left:5px;
+			}
+			tr td span {
+				float:left;
+				margin-left:5px;
+				font-size: 13px;
+			}
+			td:hover{
+				background-color:rgb(192,191,191);
+			}
+/*******************显示栏样式*******************************/
+			.main h4{
+				padding-left: 60px;
+			}
+			.blogtext{
+				padding-left: 25px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="box">
+			<!--
+				菜单栏
+            -->
+			<div class="daohanglan" id="daohanglan">
+				<img src="{{tx}}" style="max-width: 55px;margin-top: 6px;margin-left: 4px;margin-bottom: 6px;"/>
+				{{文章分类}}
+				<button class="button_mr" onclick="setjiaodian(this,'{{id}}');" name="daohanglan_button">{{name}}</button>
+				{{/文章分类}}
+				<button class="button_set"><a href="/admin" target="_bank" >三</a></button>
+			</div>
+	
+	
+			<!--
+				列表栏
+            -->
+			<div class="listbox" id="listbox">
+				<input class="sou" placeholder="搜索"/>
+				<br />
+				
+				<table border="0" id='list'>
+					<!--
+					{{文章列表}}
+					<tr>
+						<td onclick="getblogtext('{{id}}');">
+							<img src="img/tx.jpg"/>
+							<span><b>{{name}}</b></span>
+							<p>⌚{{time}}</p>
+						</td>
+					</tr>
+					{{/文章列表}}
+					-->
+				</table>
+			</div>
+
+
+			<!--
+				显示栏
+            -->
+			<div class="main" id="main">
+			<!--
+				<h4>{{标题}}</h4>
+				<hr/>
+				<div id="blogtext" class="blogtext">
+					{{博客内容}}
+	                <p>&nbsp;</p>
+	      		</div>
+	      		<hr/>
+	      	-->
+			</div>
+		</div>
+
+	</body>
+<script type="text/javascript">
+	document.getElementsByName('daohanglan_button')[0].click();
+</script>
+</html>

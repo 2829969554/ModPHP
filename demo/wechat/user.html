@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+    <meta charset="utf-8">
+    <style type="text/css">
+        .submit_1{
+            width: 90px;
+            border: 0px;
+            font-size: 20px;
+            background-color: rgb(245,245,245);
+            color: rgb(96,96,96);
+            border: 2px solid rgb(229,229,229);
+        }
+        .submit_1:hover{
+            width: 90px;
+            border: 2px solid rgb(229,229,229);
+            font-size: 20px;
+            background-color: rgb(42,161,69);
+            color: white;
+        }
+        .aaa{
+            margin: 0px;
+            background-color:rgb(255,255,255); 
+        }
+        input{
+            border: 1px solid black;
+            font-size: 18px;
+            width: 160px;
+        }
+    </style>
+</head>
+<body>
+        <h4>资料修改</h4>
+        <hr>
+
+<div style="text-align:center;" class="aaa">
+{{用户资料}}
+    <img height="200" width="200" id="tximg" src="{{tx}}" onclick="document.getElementById('file').click();" alt="" style="cursor:pointer;" />
+
+    <br/>
+    <input style="display:none;"  accept = 'image/*' type="file" name="file" id="file"  onchange="preImg('file');" /> 
+    <br/>
+
+
+
+<br/>
+
+    <!--头像-->
+    <input type="hidden" name="tx" id="tx" value="{{tx}}">
+
+    <b>昵称:</b><input   type="text" value="{{name}}" id="name">
+    <br/><br/>
+    <b>账号:</b><input  type="text" value="{{username}}" id="username" style="border:0px;" readonly="readonly">
+    <br/><br/>
+    <b>性别:</b>
+    <select id="xingbie" style="width: 160px;font-size:18px;border: 1px solid black;" value="{{xingbie}}">
+      <option value ="1">男</option>
+      <option value ="0">女</option>
+      <option value="2">外星人</option>
+    </select>{{xingbie}}
+    <br/><br/>
+    <b>密码:</b>
+    <input   type="text" value="{{password}}" id="password"></td>
+    <br/><br/>
+{{/用户资料}}
+
+    <input class="submit_1" type="button" onclick="update_user();" name="button" id="button"  value="保存">
+    <hr>
+<br/><br/>
+ <br/><br/> 
+</div>
+
+
+
+</body>
+</div>
+</html>
